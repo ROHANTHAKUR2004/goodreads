@@ -1,7 +1,31 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export default function Signup() {
+
+  const [signupdetails, setsignupdetails] = useState({
+    username : '',
+    email : '',
+    password : '',
+});
+
+
+function handleformchange(e){
+  const {name, value} = e.target;
+  setsignupdetails({
+   ...signupdetails,
+   [name]: value
+  });
+}
+
+
+function onFormSubmit(e){
+ e.preventDefault();
+ console.log("signin",signupdetails);
+}
+
+
   return (
 
     <div className="h-[100vh] flex flex-col items-center justify-center">
@@ -23,21 +47,31 @@ export default function Signup() {
       {/*  */}
 
       <div className="w-full">
-            <form className="flex flex-col justify-center mx-auto w-3/4 items-center" autoComplete="off">
+            <form
+            onSubmit={onFormSubmit}
+             className="flex flex-col justify-center mx-auto w-3/4 items-center" autoComplete="off">
                <div className="my-5 w-1/3 text-black">
                 <input 
+                autoComplete="off"
                    type="text"
                    placeholder="Username.."
                    className="px-8 py-3 w-full bg-white"
+                   name="username"
+                   onChange={handleformchange}
+                   value={signupdetails.username}
                 />
                </div>
 
                {/* */}
                <div className="my-5 w-1/3 text-black">
                 <input 
+                   autoComplete="off"
                    type="email"
                    placeholder="Email.."
                    className="px-8 py-3 w-full bg-white"
+                   name="email"
+                   onChange={handleformchange}
+                   value={signupdetails.email}
                 />
                </div>
 
@@ -46,9 +80,13 @@ export default function Signup() {
 
                <div className="my-5 w-1/3 text-black">
                 <input 
+                  autoComplete="off"
                    type="password"
                    placeholder="Password.."
                    className="px-8 py-3 w-full bg-white"
+                   name="password"
+                   onChange={handleformchange}
+                   value={signupdetails.password}
                 />
                </div>
 
