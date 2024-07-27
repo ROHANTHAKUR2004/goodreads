@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const initialState = {
     isloggedin : localStorage.getItem('isloggedin') || false,
     username : localStorage.getItem('username') ||  '',
-    token :  localStorage.getItem('token')  ||  ''
+    token :  localStorage.getItem('token')  ||  '' 
 
 };
 
@@ -55,9 +55,16 @@ export const signin = createAsyncThunk('auth/signin', async (data) =>{
 const authSlice = createSlice({
     name : 'auth',
     initialState ,
-    reducers : {},
+    reducers : {
+            logout : (state) => {
+                state.isloggedin = false;
+                state.username = '';
+                state.token = '';
+                localStorage.clear();
+            }
+    },
     extraReducers : (builder) => {
-        builder.addCase(signin.fulfilled, (state,action) =>{
+        builder.addCase(signin.fulfilled , (state,action) =>{
             if(action?.payload?.data){
                 state.isloggedin = (action?.payload?.data?.data != undefined);
                 state.username = action?.payload?.data?.data?.username;
@@ -69,6 +76,8 @@ const authSlice = createSlice({
         });
     }
 });
+
+export const {logout} = authSlice.actions;
 
 export default authSlice.reducer;
 

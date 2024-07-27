@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import Layout from "Layouts/Layout";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "Redux/Slices/AuthSlice";
 
@@ -8,6 +9,7 @@ export default function Signin() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const state = useSelector((state) => state.auth);
 
 
   const [signindetails, setsignindetails] = useState({
@@ -37,13 +39,19 @@ export default function Signin() {
       e.preventDefault();
       const response = await dispatch(signin(signindetails));
       if(response?.payload?.data){
-         navigate("/");
+         navigate("/dashboard");
       }
       resetform();
   }
 
 
+  useEffect(()=>{
+    if(state.isloggedin)
+     navigate('/dashboard');
+ },[]);
+
   return (
+    <Layout>
     <div className="h-[100vh] flex flex-col items-center justify-center">
       <div>
         <h1 className="text-white text-5xl">Login to ur account</h1>
@@ -113,5 +121,6 @@ export default function Signin() {
 
 
     </div>
+    </Layout>
   );
 }
