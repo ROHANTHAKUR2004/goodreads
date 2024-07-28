@@ -11,14 +11,14 @@ export default function Bookcard({data}) {
             <img src={img} alt="img" className='h-1/5 md:h-full'/>
         </figure>
         <div className="card-body w-10/12">
-            <h2 className="card-title text-white text-4xl">{data.title}</h2>
+            <h2 className="card-title text-yellow-200 text-4xl">{data.title}</h2>
             <div className='mt-4 flex justify-between items-center gap-2'>
                 <div className='flex flex-col gap-3 text-white text-xl  '>
                 <div className='flex justify-start gap-5 md:gap-5 items-center '>
                     <div>
                         <BiUser />
                     </div>
-                    <div>
+                    <div className='text-yellow-400'>
                          {data.author?.name}
                     </div>
                 </div> 

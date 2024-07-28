@@ -1,6 +1,5 @@
 import Layout from "Layouts/Layout";
 import { useEffect } from "react";
-import { BiUser } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
 
 import img from '../Assets/bookshelfs.png';
@@ -39,6 +38,29 @@ export default function BookDescription() {
                               {state.description}
                            </div>
 
+                          <div className="tabs tabs-boxed flex justify-start items-center flex-wrap gap-3 ">
+                                   {state.genres.map((genre) =>{
+                                         return <div 
+                                         key={genre._id} 
+                                         className="tab tab-active px-2 py-1 text-xl">
+                                          {genre.name}
+                                          </div>;
+                                   })}
+                          </div>
+
+                          <div className="text-xl">
+                                Pages : 
+                                <span className="text-yellow-400 m-2">
+                                  {state.pages}
+                                </span>
+                          </div>
+
+                          <div className="text-xl">
+                                PublishDate : 
+                                <span className="text-yellow-400 m-2">
+                                  {state.publishDate}
+                                </span>
+                          </div>
 
 
                      </div>
