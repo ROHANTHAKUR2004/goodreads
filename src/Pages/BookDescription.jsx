@@ -1,16 +1,21 @@
 import Layout from "Layouts/Layout";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { addbooktoshelfs } from "Redux/Slices/ShelfSlice";
+import { getallbookshelfs } from "Redux/Slices/ShelfSlice";
 
 import img from '../Assets/bookshelfs.png';
 
 export default function BookDescription() {
 
     const {state} = useLocation();
+    const shelfstate = useSelector((state) => state.shelf); 
+    const dispatch = useDispatch();
 
     useEffect(() =>{
-         console.log(state);
-    });
+        dispatch(getallbookshelfs());
+    },[]);
 
   return (
     <Layout>
@@ -60,6 +65,31 @@ export default function BookDescription() {
                                 <span className="text-yellow-400 m-2">
                                   {state.publishDate}
                                 </span>
+                          </div>
+
+
+                          {/* dropdown */}
+                          <div>
+                          <details className="dropdown">
+                                  <summary className="btn m-1">Add to shelf</summary>
+                                  <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                    {shelfstate.shelflist.length > 0 && shelfstate.shelflist.map((shelf)=>{
+                                       return <li 
+                                       onClick={ async () => 
+                                        {
+                                          await  dispatch(addbooktoshelfs({shelfName : shelf.name, bookId : state._id}));
+                                           await dispatch(getallbookshelfs());
+                                        }}
+                                         className="text-white "
+                                        key={shelf._id}>
+                                        <a>{shelf.name}</a>
+                                        </li>;     
+                                    })}
+                                    
+                                   
+                                  </ul>
+                                        </details>
+
                           </div>
 
 
