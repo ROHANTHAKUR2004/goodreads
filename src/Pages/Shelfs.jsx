@@ -127,13 +127,7 @@ export default function Shelfs() {
 
                             </tbody>
                             {/* foot */}
-                            <tfoot>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Rating</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
+                           
 
                         </table>
                     )}
