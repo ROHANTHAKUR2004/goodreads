@@ -14,7 +14,7 @@ export default function Dashboard() {
   async function loadbooks(){
      if(bookstate.booklist.length == 0){
       const response = await dispatch(getallbooks());
-     console.log("boo" , response);
+     console.log( response);
     }
   }
 
